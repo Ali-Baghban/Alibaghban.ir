@@ -8,18 +8,19 @@ def home(request):
     print(main)
     if not main:
         return HttpResponse("Underconstruction ...")
-    
-    about = models.About.objects.filter(is_chosen=True).first()
-    skills= models.Skill.objects.all()
-    resume= models.Resume.objects.all()
-    certs = models.Certification.objects.all()
+    profile = models.Profile.objects.filter(is_chosen=True).first()
+    about   = models.About.objects.filter(is_chosen=True).first()
+    skills  = models.Skill.objects.all()
+    resume  = models.Resume.objects.all()
+    certs   = models.Certification.objects.all()
 
     context = {
-        'main': main,
-        'about' : about,
-        'skills':skills,
-        'resume':resume,
-        'certs':certs,
+        'main'      : main,
+        'profile'   : profile,
+        'about'     : about,
+        'skills'    : skills,
+        'resume'    : resume,
+        'certs'     : certs,
         
 
     }

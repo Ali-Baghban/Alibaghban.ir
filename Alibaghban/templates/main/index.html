@@ -1,5 +1,6 @@
 {% load static %}
 
+{% if main %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,9 +13,11 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
-  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
-
+  {% if main.favicon_apple %}
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ main.favicon_apple.url }}" >
+  {% elif main.favicon %}
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ main.favicon.url }}" >
+  {% endif %}
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -49,8 +52,10 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="{% static 'assets/img/profile-img.jpg' %}" alt="" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html">Ali Baghban</a></h1>
+        {% if profile %}
+        <img src="{{ profile.avatar.url }}" alt="{{ profile.name }}" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="{% url 'home' %}}">{{ profile.name }}</a></h1>
+        {% endif %}
         <div class="social-links mt-3 text-center">
           {% if about %}
           <a href="{{ about.twitter_id }}" class="twitter"><i class="bx bxl-twitter"></i></a>
@@ -98,7 +103,7 @@
 
         <div class="row">
           <div class="col-lg-4" data-aos="fade-right">
-            <img src="{% static 'assets/img/profile-img.jpg' %}" class="img-fluid" alt="">
+            <img src="{{ about.profile_image.url }}" class="img-fluid" alt="">
           </div>
           <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
             <h3>{{ about.sub_title }}</h3>
@@ -526,7 +531,7 @@
                 <p>{{ about.phone }}</p>
               </div>
 
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+              <iframe src="https://maps.google.com/maps?q={{ about.geo_location }}&hl=es;z=14&amp;output=embed" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
             </div>
 
           </div>
@@ -609,10 +614,10 @@
   <footer id="footer">
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Alibaghban.ir</span></strong>
+        &copy; Copyright <strong><span>{{ main.site_name }}</span></strong>
       </div>
       <div class="credits">
-       Designed by <a href="#">Saja:)</a>
+       Designed by <a href="{{ main.designed_by_link }}">{{ main.designed_by }}</a>
       </div>
     </div>
   </footer><!-- End  Footer -->
@@ -636,3 +641,6 @@
 </body>
 
 </html>
+{% else %}
+<h1>There is an error.</h1>
+{% endif %}
