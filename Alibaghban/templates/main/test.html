@@ -1,0 +1,52 @@
+{% if resume %}
+    <!-- ======= Resume Section ======= -->
+    <section id="resume" class="resume">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Resume</h2>
+          <p></p>
+        </div>
+        
+        <div class="row">
+          {% for r in resume %}
+          {% if forloop.counter0|divisibleby:2 %}
+          <div class="col-lg-6" data-aos="fade-up">
+            <h3 class="resume-title">{{ r.title }}</h3>
+            {% for item in r.items.all %}
+            {% if item.break_point %}
+            <div class="resume-item pb-0">
+            {% else %}
+            <div class="resume-item">
+            {% endif %}
+              <h4>{{ item.title }}</h4>
+              <h5>{{ item.year }}</h5>
+              <p><em>{{ item.institution }}</em></p>
+              <p>{{ item.text }}</p>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="resume-title">{{ r.title }}</h3>
+            {% for item in r.items.all %}
+            {% if item.break_point %}
+            <div class="resume-item pb-0">
+            {% else %}
+            <div class="resume-item">
+            {% endif %}
+              <h4>{{ item.title }}</h4>
+              <h5>{{ item.year }}</h5>
+              <p><em>{{ item.institution }}</em></p>
+              <p>{{ item.text }}</p>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      </div>
+      </div>
+    </div>
+    </section><!-- End Resume Section -->
+    {% endif %}
