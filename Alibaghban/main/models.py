@@ -88,19 +88,25 @@ class Resume_item(models.Model):
         return self.title
     
 class Certification(models.Model):
-    title           = models.CharField(max_length=150)
-    caption         = models.TextField(blank=True)
-    image           = models.ImageField(upload_to='certs/%Y/%m/%d/', blank=True)
-    institution     = models.CharField(max_length=150, blank=True)
+    title               = models.CharField(max_length=150)
+    caption             = models.TextField(blank=True)
+    image               = models.ImageField(upload_to='certs/%Y/%m/%d/', blank=True)
+    institution         = models.CharField(max_length=150, blank=True)
+    institution_logo    = models.ImageField(upload_to='certs/%Y/%m/%d/', blank=True)
+    verification_link   = models.CharField(max_length=250, default='#')
 
     def save(self, *args, **kwargs):
         super().save()
-
         img = Image.open(self.image.path)
         if img.height > 300 or img.width > 400:
-            new_img = (300, 400)
+            new_img = (200, 300)
             img.thumbnail(new_img)
             img.save(self.image.path)
+        img = Image.open(self.institution_logo.path)
+        if img.height > 200 or img.width > 200:
+            new_img = (150, 150)
+            img.thumbnail(new_img)
+            img.save(self.institution_logo.path)
 
     def __str__(self):
         return self.title

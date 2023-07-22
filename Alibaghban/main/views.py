@@ -19,6 +19,7 @@ def home(request):
         'about' : about,
         'skills':skills,
         'resume':resume,
+        'certs':certs,
         
 
     }
